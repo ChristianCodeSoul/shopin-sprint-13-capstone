@@ -34,9 +34,17 @@ const io = new Server(server, {
 });
 app.set("io", io);
 app.use(helmet());
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://shopin-sprint-13-capstone.vercel.app",
+];
+
 app.use(
     cors({
-        origin: true,
+        origin: allowedOrigins,
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
 app.use(express.json());
